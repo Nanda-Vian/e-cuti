@@ -71,7 +71,16 @@ class Admin extends BaseController
             if (!empty($option['guard'])) {
                 $guard = array_merge($guard, $option['guard']);
             }
+
+            if ($option['table'] == 'users') {
+                $data = array_merge($data, [
+                    'sisa_tahun_min2' => getSisaJatahTahunan(date('Y') - 2, $data['id']),
+                    'sisa_tahun_min1' => getSisaJatahTahunan(date('Y') - 1, $data['id'])
+                ]);
+            }
+
             $data = Guard($data, $guard);
+
             $result = [
                 'status' => 'ok',
                 'data' => $data,
@@ -100,8 +109,12 @@ class Admin extends BaseController
             }
             $table = [
                 'users' => [
-                    'table' => 'users',
-                    'protected' => ['id:hash', 'password', 'token'],
+                    'table' => 'users u',
+                    'select' => 'u.id, u.nama, u.nip, ja.nama jabatan, ja.visible_all, u.unit_kerja_id',
+                    'protected' => ['id:hash'],
+                    'join' => [
+                        'jabatan ja' => 'ja.id = u.jabatan_id'
+                    ]
                 ],
                 'jabatan' => [
                     'table' => 'jabatan',
@@ -116,6 +129,17 @@ class Admin extends BaseController
                 throw new \Exception('nothing there');
             }
             $builder = $this->db->table($table[$data]['table']);
+
+            if (!empty($table[$data]['join'])) {
+                foreach ($table[$data]['join'] as $key => $value) {
+                    $builder->join($key, $value, 'left');
+                }
+            }
+
+            if (!empty($table[$data]['select'])) {
+                $builder->select($table[$data]['select']);
+            }
+
             if (isset($_REQUEST['where'])) {
                 $builder->where($_REQUEST['where']);
             }
@@ -123,6 +147,16 @@ class Admin extends BaseController
                 $builder->orderBy(key($_REQUEST['order']), $_REQUEST['order'][key($_REQUEST['order'])]);
             }
             $data_ = $builder->get()->getResultArray();
+
+            if ($data == 'users') {
+                $dataApproval3 = $this->db->table('users u')
+                    ->select('u.id, u.nama, u.nip, ja.nama jabatan, ja.visible_all, u.unit_kerja_id')
+                    ->join('jabatan ja', 'ja.id = u.jabatan_id', 'left')
+                    ->where('visible_all', '1')
+                    ->get()->getResultArray();
+                $data_ = array_unique(array_merge($data_, $dataApproval3), SORT_REGULAR);
+            }
+
             $resultData = [];
             foreach ($data_ as $rows) {
                 $rows = Guard($rows, $table[$data]['protected']);
@@ -244,6 +278,33 @@ class Admin extends BaseController
 
         if (session('level') == 2) {
             $whereData = [];
+        }
+
+        return $this->dataTables([
+            'table' => 'pengajuan pe',
+            'selectData' => 'pe.id, u.nama, u.nip, pe.tgl_mulai, pe.tgl_selesai, pe.jenis_cuti, pe.file_lampiran, pe.approval, pe.lama, pe.alasan, pe.alamat_cuti',
+            'field' => ['nama', 'nip', 'tgl_mulai', 'tgl_selesai', 'jenis_cuti', 'file_lampiran', 'approval', 'lama'],
+            'columnOrder' => [null, 'nama', 'jenis_cuti', 'tgl_mulai', null, 'approval'],
+            'columnSearch' => ['nama', 'alasan', 'alamat_cuti'],
+            'join' => [
+                'users u' => 'u.id = pe.user_id',
+            ],
+            'whereData' => $whereData,
+            'order' => ['pe.id' => 'desc'],
+        ]);
+    }
+
+    public function dataPengajuanDashboard()
+    {
+        $whereData = [
+            'pe.user_id' => session('userId'),
+            'pe.approval' => '1'
+        ];
+
+        if (session('level') == 2) {
+            $whereData = [
+                'pe.approval' => '1'
+            ];
         }
 
         return $this->dataTables([

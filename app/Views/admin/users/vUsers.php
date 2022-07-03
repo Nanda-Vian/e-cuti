@@ -26,7 +26,7 @@
 
                     <tbody>
                     </tbody>
-                    <tfoot>
+                    <!-- <tfoot>
                         <tr>
                             <th></th>
                             <th>NRK / NIP</th>
@@ -37,7 +37,7 @@
                             <th>Active</th>
                             <th>Aksi</th>
                         </tr>
-                    </tfoot>
+                    </tfoot> -->
                 </table>
             </div>
         </div>

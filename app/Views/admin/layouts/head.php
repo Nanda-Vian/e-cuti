@@ -9,6 +9,8 @@
     <meta name="apiPath" content="<?php echo API_PATH; ?>">
     <meta name="userId" content="<?php echo Enc(session('userId')); ?>">
     <meta name="level" content="<?php echo session('level'); ?>">
+    <meta name="unitKerja" content="<?php echo session('unitKerja'); ?>">
+    <meta name="tahun" content="<?php echo date('Y'); ?>">
     <title class="webTitle">E-Cuti | <?php echo $title ?? 'Administrator'; ?></title>
     <link rel="shortcut icon" type="image/jpg" href="<?php echo base_url('assets/img/logo.png'); ?>" />
     <link rel="stylesheet"

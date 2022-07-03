@@ -3,8 +3,10 @@
 <script src="<?= base_url('assets/admin') ?>/plugins/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 <script src="<?= base_url('assets/admin') ?>/plugins/moment/moment.min.js" defer></script>
 <script src="<?= base_url('assets/admin') ?>/plugins/daterangepicker/daterangepicker.js" defer></script>
-<script src="<?= base_url('assets/admin') ?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js" defer></script>
-<script src="<?= base_url('assets/admin') ?>/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" defer></script>
+<script src="<?= base_url('assets/admin') ?>/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"
+    defer></script>
+<script src="<?= base_url('assets/admin') ?>/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js" defer>
+</script>
 <script src="<?= base_url('assets/admin') ?>/assets/js/adminlte.js" defer></script>
 <script src="<?= base_url('assets/admin') ?>/plugins/datatables/jquery.dataTables.min.js" defer></script>
 <script src="<?= base_url('assets/admin') ?>/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js" defer></script>
@@ -19,7 +21,11 @@
 <script src="<?= base_url('assets/js/module/socket.io.js') ?>" defer></script>
 <!-- <script src="https://socket.xyrus10.com/socket.io/socket.io.js" defer></script> -->
 <!-- <script src="http://192.168.1.17:6996/socket.io/socket.io.js" defer></script> -->
+<?php if (getenv('CI_ENVIRONMENT') == 'development') : ?>
 <script src="<?= base_url('assets/js/app.js') ?>" defer></script>
+<?php else : ?>
+<script src="<?= base_url('assets/js/app.min.js') ?>" defer></script>
+<?php endif ?>
 <div id="customJsNa">
     <?= $this->renderSection('js'); ?>
 </div>

@@ -20,7 +20,7 @@ class Dashboard extends BaseController
                 'jumlah' => getSisaJatahTahunan($tahunMin1, session('userId'))
             ],
             [
-                'nama' => 'Total',
+                'nama' => "Total " . date('Y'),
                 'jumlah' => getJatahTahunan(session('userId'))
             ]
         ];

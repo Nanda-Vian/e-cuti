@@ -153,6 +153,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], function ($routes)
         $routes->post('options/(:any)', 'Admin::getDataOption/$1');
         $routes->post('profile', 'Admin::dataProfile');
         $routes->post('pengajuan', 'Admin::dataPengajuan');
+        $routes->post('pengajuan-dashboard', 'Admin::dataPengajuanDashboard');
         $routes->post('approval', 'Admin::dataApproval');
     });
 

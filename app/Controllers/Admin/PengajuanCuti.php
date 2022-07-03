@@ -89,24 +89,36 @@ class PengajuanCuti extends BaseController
 
             $pengajuanId = $this->db->insertID();
 
-            $userApproval = $this->db->table('users')->select('approval_1, approval_2, approval_3')->where(['id' => session('userId')])->get()->getRow();
+            // $userApproval = $this->db->table('users')->select('approval_1, approval_2, approval_3')->where(['id' => session('userId')])->get()->getRow();
 
-            $_approval[] = $userApproval->approval_1;
-            $_approval[] = $userApproval->approval_2;
-            $_approval[] = $userApproval->approval_3;
+            // $_approval[] = $userApproval->approval_1;
+            // $_approval[] = $userApproval->approval_2;
+            // $_approval[] = $userApproval->approval_3;
 
-            foreach ($_approval as $key => $value) {
-                $approval[] = [
-                    'urut' => $key + 1,
-                    'pengajuan_id' => $pengajuanId,
-                    'user_id' => $this->db->table('users')->select('id')->where([EncKey('id') => $value])->get()->getRow()->id
-                ];
+            // foreach ($_approval as $key => $value) {
+            //     $approval[] = [
+            //         'urut' => $key + 1,
+            //         'pengajuan_id' => $pengajuanId,
+            //         'user_id' => $this->db->table('users')->select('id')->where([EncKey('id') => $value])->get()->getRow()->id
+            //     ];
+            // }
+
+            foreach ($_REQUEST as $key => $value) {
+                if (substr($key, 0, 9) == 'approval_') {
+                    $approval[] = [
+                        'urut' => substr($key, 9, 1),
+                        'pengajuan_id' => $pengajuanId,
+                        'user_id' => $this->db->table('users')->select('id')->where([EncKey('id') => $value])->get()->getRow()->id
+                    ];
+                }
             }
 
             // Print_($approval, true);
 
             if (!Create('approval_pengajuan', $approval)) throw new \Exception("Gagal menambah approval");
-            Update('users', ['cuti_tahun_jatah' => $sisaCuti], ['id' => session('userId')]);
+            if (Input_('jenis_cuti') == "0") {
+                Update('users', ['cuti_tahun_jatah' => $sisaCuti], ['id' => session('userId')]);
+            }
 
             $message = [
                 'status' => 'ok',

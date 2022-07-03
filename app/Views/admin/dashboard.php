@@ -20,7 +20,7 @@
 
         <?php foreach ($cuti as $key) : ?>
 
-        <div class="col-lg-2 col-md-3 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-xs-12">
 
             <div class="card shadow ">
                 <div class="card-header text-center">
@@ -37,44 +37,37 @@
 
         <?php endforeach; ?>
     </div>
+    <?php endif; ?>
     <div class="row">
-        <div class="card shadow mb-0">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <div class="float-right ml-3">
-                    </div>
-                    <table id="listPengajuan" class="table table-bordered" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nama / NIP</th>
-                                <th>Jenis / Lama Cuti</th>
-                                <th>Tgl Mulai / Selesai</th>
-                                <th>File Lampiran</th>
-                                <th>Status Pengajuan</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
+        <div class="col-12">
+            <div class="card shadow mb-0">
+                <div class="card-header">
+                    Pengajuan diterima
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="float-right ml-3">
+                        </div>
+                        <table id="listPengajuanDashboard" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nama / NIP</th>
+                                    <th>Jenis / Lama Cuti</th>
+                                    <th>Tgl Mulai / Selesai</th>
+                                    <th>File Lampiran</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>#</th>
-                                <th>Nama / NIP</th>
-                                <th>Jenis / Lama Cuti</th>
-                                <th>Tgl Mulai / Selesai</th>
-                                <th>File Lampiran</th>
-                                <th>Status Pengajuan</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php endif; ?>
 </div>
 
 <?= $this->endSection(); ?>

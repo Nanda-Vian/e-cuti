@@ -22,7 +22,7 @@
 
                     <tbody>
                     </tbody>
-                    <tfoot>
+                    <!-- <tfoot>
                         <tr>
                             <th>#</th>
                             <th>Nama / NIP</th>
@@ -32,7 +32,7 @@
                             <th>Status Pengajuan</th>
                             <th>Aksi</th>
                         </tr>
-                    </tfoot>
+                    </tfoot> -->
                 </table>
             </div>
         </div>

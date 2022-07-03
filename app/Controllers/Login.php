@@ -52,6 +52,7 @@ class Login extends BaseController
                 'email' => $userData->email,
                 'nrk' => $userData->nrk,
                 'level' => $userData->level,
+                'unitKerja' => $userData->unit_kerja_id,
             ];
 
             cekTahun($userData->id);

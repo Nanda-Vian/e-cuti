@@ -105,12 +105,36 @@ class Karyawan extends BaseController
             if (Input_('cuti_tahun_jatah') > 12) {
                 $validate = ValidateAdd($validate, 'cuti_tahun_jatah', "Tidak boleh lebih dari 12 hari !");
             }
+            if (Input_('sisa_tahun_min1') > 12) {
+                $validate = ValidateAdd($validate, 'sisa_tahun_min1', "Tidak boleh lebih dari 12 hari !");
+            }
+            if (Input_('sisa_tahun_min2') > 12) {
+                $validate = ValidateAdd($validate, 'sisa_tahun_min2', "Tidak boleh lebih dari 12 hari !");
+            }
             if (!$validate['success']) throw new \Exception("Error Processing Request");
             $idJabatan = $this->db->table('jabatan')->select('id')->where([EncKey('id') => Input_('jabatan_id')])->get()->getRow()->id;
             $idUnitKerja = $this->db->table('unit_kerja')->select('id')->where([EncKey('id') => Input_('unit_kerja_id')])->get()->getRow()->id;
+            $idUser =  $this->db->table('users')->select('id')->where([EncKey('id') => Input_('id')])->get()->getRow()->id;
             $validate['data']['unit_kerja_id'] = $idUnitKerja;
             $validate['data']['jabatan_id'] = $idJabatan;
-            if (!Update($this->table, Guard($validate['data'], ['id']), [EncKey('id') => Input_('id')])) throw new \Exception("Tidak ada perubahan");
+            $cekThunMin1 = Where('cuti_tahunan', [EncKey('user_id') => Input_('id'), 'tahun' => date('Y') - 1]);
+            $cekThunMin2 = Where('cuti_tahunan', [EncKey('user_id') => Input_('id'), 'tahun' => date('Y') - 2]);
+
+            if ($cekThunMin1)
+                Update('cuti_tahunan', ['sisa' => Input_('sisa_tahun_min1')], [EncKey('user_id') => Input_('id'), 'tahun' => date('Y') - 1]);
+            else
+                Create('cuti_tahunan', ['user_id' => $idUser, 'tahun' => date('Y') - 1, 'sisa' => Input_('sisa_tahun_min1')]);
+
+            if ($cekThunMin2)
+                Update('cuti_tahunan', ['sisa' => Input_('sisa_tahun_min2')], [EncKey('user_id') => Input_('id'), 'tahun' => date('Y') - 2]);
+            else
+                Create('cuti_tahunan', ['user_id' => $idUser, 'tahun' => date('Y') - 2, 'sisa' => Input_('sisa_tahun_min2')]);
+
+            // Print_($cekThunMin2);
+
+            // if (!Update($this->table, Guard($validate['data'], ['id']), [EncKey('id') => Input_('id')])) throw new \Exception("Tidak ada perubahan");
+
+            Update($this->table, Guard($validate['data'], ['id']), [EncKey('id') => Input_('id')]);
 
             $message = [
                 'status' => 'ok',

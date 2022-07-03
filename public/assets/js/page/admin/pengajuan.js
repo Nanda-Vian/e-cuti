@@ -74,19 +74,61 @@ function addFormApproval() {
     clearFormInput("#formApproval");
     addFormInput("#formApproval", [
         {
-            type: "text",
+            type: "select2",
             name: "approval_1",
             label: "Approval 1",
+            api: {
+                url: API_PATH + "data/options/users",
+                option: {
+                    value: "id",
+                    caption: "{nip} - {nama}",
+                },
+                where: {
+                    level: 1,
+                    unit_kerja_id: UNITKERJA,
+                },
+                order: {
+                    nama: "asc",
+                },
+            },
         },
         {
-            type: "text",
+            type: "select2",
             name: "approval_2",
             label: "Approval 2",
+            api: {
+                url: API_PATH + "data/options/users",
+                option: {
+                    value: "id",
+                    caption: "{nip} - {nama}",
+                },
+                where: {
+                    level: 1,
+                    unit_kerja_id: UNITKERJA,
+                },
+                order: {
+                    nama: "asc",
+                },
+            },
         },
         {
-            type: "text",
-            name: "approval_2",
-            label: "Approval 2",
+            type: "select2",
+            name: "approval_3",
+            label: "Approval 3",
+            api: {
+                url: API_PATH + "data/options/users",
+                option: {
+                    value: "id",
+                    caption: "{nip} - {nama}",
+                },
+                where: {
+                    level: 1,
+                    unit_kerja_id: UNITKERJA,
+                },
+                order: {
+                    nama: "asc",
+                },
+            },
         },
     ]);
 }
@@ -98,23 +140,23 @@ $(document).ready(function () {
     addFormDokumenPendukung();
     addFormApproval();
     $("#formInput").attr("action", CURRENT_PATH + "store");
-    $.ajax({
-        url: `${API_PATH}get/approval`,
-        type: "get",
-        processData: !1,
-        contentType: !1,
-        cache: !1,
-        dataType: "JSON",
-        success: function (e) {
-            fillForm(e);
-            if (e.approval_1 == "Belum diatur") {
-                disableButton();
-            }
-        },
-        error: function (err) {
-            errorCode(err);
-        },
-    });
+    // $.ajax({
+    //     url: `${API_PATH}get/approval`,
+    //     type: "get",
+    //     processData: !1,
+    //     contentType: !1,
+    //     cache: !1,
+    //     dataType: "JSON",
+    //     success: function (e) {
+    //         fillForm(e);
+    //         if (e.approval_1 == "Belum diatur") {
+    //             disableButton();
+    //         }
+    //     },
+    //     error: function (err) {
+    //         errorCode(err);
+    //     },
+    // });
 });
 
 $(`#formInput`).submit(function (e) {
@@ -151,7 +193,8 @@ $(`#formInput`).submit(function (e) {
             validate(e.validate.input),
                 e.validate.success == true
                     ? "ok" == e.status
-                        ? toastSuccess(e.message)
+                        ? (toastSuccess(e.message),
+                          clearInput(e.validate.input))
                         : // clearInput(e.validate.input)
                           toastWarning(e.message)
                     : toastWarning(e.message);

@@ -4,34 +4,16 @@ const BASE_URL = $('meta[name="baseUrl"]').attr("content"),
     LEVEL = $('meta[name="level"]').attr("content"),
     USERID = $('meta[name="userId"]').attr("content"),
     TOKEN = $('meta[name="token"]').attr("content"),
+    UNITKERJA = $('meta[name="unitKerja"]').attr("content"),
+    TAHUN = $('meta[name="tahun"]').attr("content"),
     REFRESH_TABLE_TIME = 30000;
 var table = "",
     table1 = "",
     CURRENT_PATH,
     refreshTableInterval,
     tableId,
-    inputIdPengajuan;
-var htmlEditor = "",
-    cssEditor = "",
-    jsEditor = "";
-var socket = [];
-
-// if (typeof io !== 'undefined') {
-// 	socket = io.connect(`https://socket-dgt.inh.pw/`)
-// 	// socket = io.connect(`http://192.168.1.69:6996`)
-// 	// socket = io.connect(`http://localhost:6996`)
-// 	// socket = io.connect(`https://ipdn-socket.herokuapp.com`)
-// 	socket.on("connect", () => {
-// 		// console.log("socket connected")
-// 		socket.emit("connected", {
-// 			username: USERNAME,
-// 			userId: USERID,
-// 			origin: BASE_URL,
-// 			token: TOKEN,
-// 		});
-// 	});
-// }
-// socket.emit("join")
+    inputIdPengajuan,
+    socket = [];
 
 moment.locale("id");
 

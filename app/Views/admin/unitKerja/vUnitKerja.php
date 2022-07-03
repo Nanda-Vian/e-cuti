@@ -29,13 +29,13 @@ tbody tr:hover {
 
                             <tbody>
                             </tbody>
-                            <tfoot>
+                            <!-- <tfoot>
                                 <tr>
                                     <th></th>
                                     <th>Unit Kerja</th>
                                     <th>Aksi</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> -->
                         </table>
                     </div>
                 </div>

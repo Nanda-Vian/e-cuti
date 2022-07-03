@@ -268,62 +268,72 @@ $(document).ready(function () {
                     {
                         type: "number",
                         name: "cuti_tahun_jatah",
-                        label: "Jatah Cuti Tahunan",
+                        label: `Jatah Cuti Tahun ${TAHUN}`,
                     },
                     {
-                        type: "select2",
-                        name: "approval_1",
-                        label: "Approval 1",
-                        api: {
-                            url: API_PATH + "data/options/users",
-                            option: {
-                                value: "id",
-                                caption: "{nip} - {nama}",
-                            },
-                            where: {
-                                level: 1,
-                            },
-                            order: {
-                                nama: "asc",
-                            },
-                        },
+                        type: "number",
+                        name: "sisa_tahun_min1",
+                        label: `Sisa Tahun ${TAHUN - 1}`,
                     },
                     {
-                        type: "select2",
-                        name: "approval_2",
-                        label: "Approval 2",
-                        api: {
-                            url: API_PATH + "data/options/users",
-                            option: {
-                                value: "id",
-                                caption: "{nip} - {nama}",
-                            },
-                            where: {
-                                level: 1,
-                            },
-                            order: {
-                                nama: "asc",
-                            },
-                        },
+                        type: "number",
+                        name: "sisa_tahun_min2",
+                        label: `Sisa Tahun ${TAHUN - 2}`,
                     },
-                    {
-                        type: "select2",
-                        name: "approval_3",
-                        label: "Approval 3",
-                        api: {
-                            url: API_PATH + "data/options/users",
-                            option: {
-                                value: "id",
-                                caption: "{nip} - {nama}",
-                            },
-                            where: {
-                                level: 1,
-                            },
-                            order: {
-                                nama: "asc",
-                            },
-                        },
-                    },
+                    // {
+                    //     type: "select2",
+                    //     name: "approval_1",
+                    //     label: "Approval 1",
+                    //     api: {
+                    //         url: API_PATH + "data/options/users",
+                    //         option: {
+                    //             value: "id",
+                    //             caption: "{nip} - {nama}",
+                    //         },
+                    //         where: {
+                    //             level: 1,
+                    //         },
+                    //         order: {
+                    //             nama: "asc",
+                    //         },
+                    //     },
+                    // },
+                    // {
+                    //     type: "select2",
+                    //     name: "approval_2",
+                    //     label: "Approval 2",
+                    //     api: {
+                    //         url: API_PATH + "data/options/users",
+                    //         option: {
+                    //             value: "id",
+                    //             caption: "{nip} - {nama}",
+                    //         },
+                    //         where: {
+                    //             level: 1,
+                    //         },
+                    //         order: {
+                    //             nama: "asc",
+                    //         },
+                    //     },
+                    // },
+                    // {
+                    //     type: "select2",
+                    //     name: "approval_3",
+                    //     label: "Approval 3",
+                    //     api: {
+                    //         url: API_PATH + "data/options/users",
+                    //         option: {
+                    //             value: "id",
+                    //             caption: "{nip} - {nama}",
+                    //         },
+                    //         where: {
+                    //             level: 1,
+                    //         },
+                    //         order: {
+                    //             nama: "asc",
+                    //         },
+                    //     },
+                    // },
                 ]);
             },
             complete: function () {
@@ -449,65 +459,21 @@ $(document).ready(function () {
             {
                 type: "number",
                 name: "cuti_tahun_jatah",
-                label: "Jatah Cuti Tahunan",
+                label: `Jatah Cuti Tahun ${TAHUN}`,
             },
-            {
-                type: "select2",
-                name: "approval_1",
-                label: "Approval 1",
-                api: {
-                    url: API_PATH + "data/options/users",
-                    option: {
-                        value: "id",
-                        caption: "{nip} - {nama}",
-                    },
-                    where: {
-                        level: 1,
-                    },
-                    order: {
-                        nama: "asc",
-                    },
-                },
-            },
-            {
-                type: "select2",
-                name: "approval_2",
-                label: "Approval 2",
-                api: {
-                    url: API_PATH + "data/options/users",
-                    option: {
-                        value: "id",
-                        caption: "{nip} - {nama}",
-                    },
-                    where: {
-                        level: 1,
-                    },
-                    order: {
-                        nama: "asc",
-                    },
-                },
-            },
-            {
-                type: "select2",
-                name: "approval_3",
-                label: "Approval 3",
-                api: {
-                    url: API_PATH + "data/options/users",
-                    option: {
-                        value: "id",
-                        caption: "{nip} - {nama}",
-                    },
-                    where: {
-                        level: 1,
-                    },
-                    order: {
-                        nama: "asc",
-                    },
-                },
-            },
+            // {
+            //     type: "number",
+            //     name: "sisa_tahun_min1",
+            //     label: `Sisa Tahun ${TAHUN - 1}`,
+            // },
+            // {
+            //     type: "number",
+            //     name: "sisa_tahun_min2",
+            //     label: `Sisa Tahun ${TAHUN - 2}`,
+            // },
         ]);
         $("#modalForm").modal("show");
-        $("#modalTitle").html("Tambah Pengguna");
+        $("#modalTitle").html("Tambah Karyawan");
         $("#formInput").attr("action", CURRENT_PATH + "store");
     }),
     $("#formInput").submit(function (e) {
